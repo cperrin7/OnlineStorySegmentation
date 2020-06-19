@@ -11,3 +11,4 @@ if(!require("patchwork")) install.packages("patchwork");library(patchwork)
 ##load data (change file path if not me)
 messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_questionnaire-jthw.csv")
 
+#making a change changes changes
