@@ -17,7 +17,7 @@ for(row in 1:nrow(long_data)){
     long_data[row,"Response"]=long_data[row+1,"Response"]
   }
 }
-long_data = filter(long_data, Question.Key!="language-text")
+long_data = filter(long_data, Question.Key!="language-text") 
 
 ##organize into wide format
 #want participants to get each their own row
