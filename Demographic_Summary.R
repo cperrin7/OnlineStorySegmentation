@@ -1,0 +1,35 @@
+##Code for Summarizing Online Story Segmentation Demographics
+#Author: Cameron Perrin, cperrin@wustl.edu
+if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
+if(!require("ggplot2")) install.packages("ggplot2"); library(ggplot2)
+if(!require("tidyverse")) install.packages("tidyverse");library(tidyverse)
+if(!require("patchwork")) install.packages("patchwork");library(patchwork)
+
+##load data (change file path if not me)
+messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_questionnaire-jthw.csv")
+#summary(messy_data)
+messy_data = select(messy_data,13,27,28)#only include demog data columns and pt id
+long_data = filter(messy_data, Question.Key=="age" | Question.Key=="countryOfResidence
+" | Question.Key=="yearsSchooling" | Question.Key=="language" | Question.Key=="language-text" | Question.Key=="sex" | Question.Key=="ethnicity" | Question.Key=="race")
+#make sure language data included if pt chose 'other'
+for(row in 1:nrow(long_data)){
+  if(long_data[row,"Response"]=='Other (please specify)'){
+    long_data[row,"Response"]=long_data[row+1,"Response"]
+  }
+}
+long_data = filter(long_data, Question.Key!="language-text")
+
+##organize into wide format
+#want participants to get each their own row
+#use spread or pivot_wider
+demog_data = pivot_wider(long_data, names_from=Question.Key, values_from = Response)
+#change from char types to useful types
+demog_data$age = as.numeric(demog_data$age)
+demog_data$yearsSchooling = as.numeric(demog_data$yearsSchooling)
+demog_data$language = as.factor(demog_data$language)
+demog_data$sex = as.factor(demog_data$sex)
+demog_data$ethnicity = as.factor(demog_data$ethnicity)
+demog_data$race = as.factor(demog_data$race)
+summary(demog_data)
+
+
