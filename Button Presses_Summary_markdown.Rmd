@@ -1,0 +1,87 @@
+---
+title: "Button Presses_Summary_markdown"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+##Summarize number of Button Presses per condition for Online Story Segmentation
+#Author: Cameron Perrin, cperrin@wustl.edu
+
+# Summarize so you still have a long format, but one row per subject per condition (keep which story).
+# Then you can summarize/plot so that we have # button presses coded by each acoustic condition
+if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
+if(!require("ggplot2")) install.packages("ggplot2"); library(ggplot2)
+if(!require("tidyverse")) install.packages("tidyverse");library(tidyverse)
+if(!require("patchwork")) install.packages("patchwork");library(patchwork)
+
+##load data (change file path if not me)
+messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_task-j2vq.csv")
+messy_data = select(messy_data, Participant.Private.ID, narrativeName, noiseCondition, Response, Attempt)
+long_data = filter(messy_data, Response=="space")
+long_data = subset(long_data, select = -Response)
+#get rid of the practice lectures
+long_data = filter(long_data, narrativeName!="Lecture1")
+
+#now want sum of button presses
+button_presses = pivot_wider(long_data, names_from = narrativeName, values_from = Attempt, values_fn = list(Attempt = length))
+#^gives us a weird looking thing, but has all narrative and noise info
+
+#get sum off button presses for each pt for each narrative (not what we're looking for)
+button_press_by_narrative = pivot_wider(subset(long_data, select = -noiseCondition), names_from = narrativeName, values_from = Attempt, values_fn = list(Attempt = length))
+#^looks better, but lose the noise info
+
+# #by noise condition?
+# button_press_by_noise = pivot_wider(subset(filter(long_data, narrativeName!="Lecture1"), select = -narrativeName), names_from = noiseCondition, values_from = Attempt, values_fn = list(Attempt = length))
+# #NO: issue is that each pt gets two of a noise condition, rn it sums up both instead of keeping the sums separate
+#might have to do this by hand :(
+
+#get rid of narrative column
+long_data_2 = subset(long_data, select = -narrativeName)
+button_press_by_noise = long_data_2[10,]
+past_narrative = long_data[10,2]
+past_pt = long_data[10,1]
+button_row = 1
+#just want id, noise condition, and button presses
+for(row in 11:nrow(long_data_2)){
+  current_narrative = long_data[row,2]
+  current_pt = long_data[row,1]
+  if((current_narrative==past_narrative)&&(current_pt==past_pt)){
+    #if we're still on the same narrative and pt, write over the current row in the button_press_by_noise
+    button_press_by_noise[button_row,] = long_data_2[row,]
+  }
+  else{
+    #if we moved to a new narrative or pt, move to the next row and add it
+    button_row = button_row + 1
+    button_press_by_noise[button_row,] = long_data_2[row,]
+  }
+  
+  past_narrative = current_narrative
+  past_pt = current_pt
+}#I can't believe that worked
+
+
+#now to use info from button_presses to get noise info stats
+
+ggplot(data=button_press_by_noise, mapping = aes(x=noiseCondition, y=Attempt, fill=noiseCondition)) + geom_boxplot(width=0.2, alpha=0.5) + labs(title = "Noise Condition vs Number of Button Presses - outliers included", y="Button Presses")
+
+
+```
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+#exclude pt 1301657 (all the outliers)
+
+button_press_by_noise_no_outliers = filter(button_press_by_noise, Participant.Private.ID!="1301657")
+ggplot(data=button_press_by_noise_no_outliers, mapping = aes(x=noiseCondition, y=Attempt, fill=noiseCondition)) + geom_boxplot(width=0.2, alpha=0.5) + labs(title = "Noise Condition vs Number of Button Presses - outlier excluded", y="Button Presses")	
+	
+```
+
