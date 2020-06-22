@@ -1,0 +1,24 @@
+---
+title: "Raster Plot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+#use the abline function? (http://www.sthda.com/english/wiki/abline-r-function-an-easy-way-to-add-straight-lines-to-a-plot-using-r-software#add-a-vertical-line)
+
+
+
+
+
+
+```
+
+
+
