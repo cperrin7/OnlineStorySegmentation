@@ -1,3 +1,18 @@
+---
+title: "Demographic_Summary"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
 ##Code for Summarizing Online Story Segmentation Demographics
 #Author: Cameron Perrin, cperrin@wustl.edu
 if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
@@ -31,5 +46,6 @@ demog_data$sex = as.factor(demog_data$sex)
 demog_data$ethnicity = as.factor(demog_data$ethnicity)
 demog_data$race = as.factor(demog_data$race)
 summary(demog_data)
+```
 
 
