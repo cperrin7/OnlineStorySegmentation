@@ -7,9 +7,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-#use the abline function? (http://www.sthda.com/english/wiki/abline-r-function-an-easy-way-to-add-straight-lines-to-a-plot-using-r-software#add-a-vertical-line)
-#nope, use segments() (https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/segments.html)
+## Code for making raster plot of the button presses for Story Segmentation
+Author: Cameron Perrin, cperrin@wustl.edu
+
+
+#Plot one participant for one story
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 ##Code for making raster plot of the button presses for Story Segmentation
@@ -20,10 +22,28 @@ if(!require("tidyverse")) install.packages("tidyverse");library(tidyverse)
 if(!require("patchwork")) install.packages("patchwork");library(patchwork)
 
 #load data
-messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_questionnaire-jthw.csv")
+messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_task-j2vq.csv")
+#want data for reaction time, for the space presses
+messy_data = filter(messy_data, Response=="space")
+reaction_time = select(messy_data, Participant.Private.ID, narrativeName, noiseCondition, Reaction.Time) #reaction time should be in ms, from the start of the story
+#get rid of lecture practice data
+reaction_time = filter(reaction_time, narrativeName!="Lecture1")
 
+#try plotting pt 1268616 for Narrative 3
+pt_1268618_N3 = filter(reaction_time, narrativeName=="Narrative3" & Participant.Private.ID=="1268616")
+x0 = vector()
+y0 = rep(0, nrow(pt_1268618_N3))
+y1 = rep(1, nrow(pt_1268618_N3))
+for(rt in pt_1268618_N3$Reaction.Time){
+  x0 = c(x0, rt)
+}
+x0 = as.numeric(x0)
 
+plot(c(0, pt_1268618_N3[nrow(pt_1268618_N3),4]), c(0,1), col = "white", xlab = "Time (ms)", ylab = "", main = "Button Presses for pt 1268616, Narrative 3", axes=FALSE)
+Axis(side=1, labels=TRUE)
+segments(x0=x0, y0=y0, y1=y1)
 
+#I should convert to seconds
 ```
 
 
