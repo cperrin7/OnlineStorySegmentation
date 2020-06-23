@@ -7,11 +7,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Summarize number of Button Presses per condition for Online Story Segmentation
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Author: Cameron Perrin, cperrin@wustl.edu
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 ##Summarize number of Button Presses per condition for Online Story Segmentation
@@ -77,6 +75,8 @@ ggplot(data=button_press_by_noise, mapping = aes(x=noiseCondition, y=Attempt, fi
 
 ```
 
+
+
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 #exclude pt 1301657 (all the outliers)
 
@@ -84,4 +84,4 @@ button_press_by_noise_no_outliers = filter(button_press_by_noise, Participant.Pr
 ggplot(data=button_press_by_noise_no_outliers, mapping = aes(x=noiseCondition, y=Attempt, fill=noiseCondition)) + geom_boxplot(width=0.2, alpha=0.5) + labs(title = "Noise Condition vs Number of Button Presses - outlier excluded", y="Button Presses")	
 	
 ```
-
+*excluded pt 1301657 (all the outliers)
