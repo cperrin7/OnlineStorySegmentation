@@ -8,13 +8,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
-
+#use the abline function? (http://www.sthda.com/english/wiki/abline-r-function-an-easy-way-to-add-straight-lines-to-a-plot-using-r-software#add-a-vertical-line)
+#nope, use segments() (https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/segments.html)
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
-#use the abline function? (http://www.sthda.com/english/wiki/abline-r-function-an-easy-way-to-add-straight-lines-to-a-plot-using-r-software#add-a-vertical-line)
+##Code for making raster plot of the button presses for Story Segmentation
+#Author: Cameron Perrin, cperrin@wustl.edu
+if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
+if(!require("ggplot2")) install.packages("ggplot2"); library(ggplot2)
+if(!require("tidyverse")) install.packages("tidyverse");library(tidyverse)
+if(!require("patchwork")) install.packages("patchwork");library(patchwork)
 
-
-
+#load data
+messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_questionnaire-jthw.csv")
 
 
 
