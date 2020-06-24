@@ -38,12 +38,31 @@ for(rt in pt_1268618_N3$Reaction.Time){
   x0 = c(x0, rt)
 }
 x0 = as.numeric(x0)
+x0 = x0/1000 #convert to seconds from ms
 
-plot(c(0, pt_1268618_N3[nrow(pt_1268618_N3),4]), c(0,1), col = "white", xlab = "Time (ms)", ylab = "", main = "Button Presses for pt 1268616, Narrative 3", axes=FALSE)
+plot(c(0, x0[length(x0)]), c(0,1), col = "white", xlab = "Time (seconds)", ylab = "", main = "Button Presses for pt 1268616, Narrative 3", axes=FALSE)
 Axis(side=1, labels=TRUE)
 segments(x0=x0, y0=y0, y1=y1)
 
-#I should convert to seconds
+```
+
+#Plot multiple participants for one story
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+#plot for Narrative 3, in quiet
+n3_quiet_long = filter(reaction_time, narrativeName=="Narrative3" & noiseCondition=="quiet")
+n3_quiet = pivot_wider(select(n3_quiet_long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+all_x0 = list()
+for(pt in n3_quiet){
+  x0 = vector()
+  for(rt in n3_quiet$Narrative3[pt]){
+    x0 = c(x0, rt)
+  }
+  x0 = as.numeric(x0)
+  x0 = x0/1000 
+  all_x0[[pt]] = x0 #wtf it works when I use a specific pt number tho
+}
+
 ```
 
 
