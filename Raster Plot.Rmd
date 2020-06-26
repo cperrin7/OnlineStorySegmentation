@@ -78,6 +78,8 @@ hist(n3_quiet_long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250),
 
 ```
 
+Note: histogram includes the odd participant, so likely those spikes are from that participant
+
 Look at that weird participant
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
