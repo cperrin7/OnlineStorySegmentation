@@ -103,3 +103,11 @@ segments(x0=x0, y0=y0, y1=y1)
 
 ```
 
+histogram without odd participant
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+n3_quiet_no_outlier = filter(n3_quiet_long, n3_quiet_long$Participant.Private.ID!="1301657")
+
+hist(n3_quiet_no_outlier$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=25)
+```
+
