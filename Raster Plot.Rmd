@@ -51,18 +51,26 @@ segments(x0=x0, y0=y0, y1=y1)
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 #plot for Narrative 3, in quiet
 n3_quiet_long = filter(reaction_time, narrativeName=="Narrative3" & noiseCondition=="quiet")
+n3_quiet_long$Reaction.Time = as.numeric(n3_quiet_long$Reaction.Time)/1000
 n3_quiet = pivot_wider(select(n3_quiet_long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
-all_x0 = list()
-for(pt in n3_quiet){
-  x0 = vector()
-  for(rt in n3_quiet$Narrative3[pt]){
-    x0 = c(x0, rt)
-  }
-  x0 = as.numeric(x0)
-  x0 = x0/1000 
-  all_x0[[pt]] = x0 #wtf it works when I use a specific pt number tho
+library(plyr)
+n3_quiet = rename(n3_quiet, c("Narrative3"="reaction_time"))
+
+#n3_quiet = filter(n3_quiet, Participant.Private.ID!="1272888", Participant.Private.ID!="1301644", Participant.Private.ID!="1307287", Participant.Private.ID!="1310673", Participant.Private.ID!="1311497", Participant.Private.ID!="1273786", Participant.Private.ID!="1307732") #this removes all pt with only one response
+
+#now plot on one big thing
+ln_n3 = 228 #length of narrative 3 is 228 seconds - was using for x axis, but going to 250 looks better
+plot(c(0, 250), c(0,nrow(n3_quiet)), col = "white", xlab = "Time (seconds)", ylab = "", main = "Button Presses for all pt for Narrative 3 in quiet", axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(n3_quiet)){
+  y0 = rep(row-1, length(n3_quiet$reaction_time[row]))
+  y1 = rep(row, length(n3_quiet$reaction_time[row]))
+  #print(row)
+  segments(x0=unlist(n3_quiet$reaction_time[row]), y0=y0, y1=y1) 
 }
 
+
+#add pt ids as y-axis labels? lots of effort maybe not worth it
 ```
 
 
