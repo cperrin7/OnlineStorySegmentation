@@ -46,7 +46,7 @@ segments(x0=x0, y0=y0, y1=y1)
 
 ```
 
-#Plot multiple participants for one story
+#Plot multiple participants for one story, with corresponding histogram
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 #plot for Narrative 3, in quiet
@@ -71,7 +71,22 @@ for(row in 1:nrow(n3_quiet)){
 
 
 #add pt ids as y-axis labels? lots of effort maybe not worth it
+#look into weird pt
 ```
 
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+#add histogram below it
+hist(n3_quiet_long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=25)
 
+```
+
+#Look at that weird participant
+
+```{r, echo=FALSE,eval=TRUE, message= FALSE}
+#long = pivot_wider(select(n3_quiet_long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = length))
+
+#pt 1301657
+
+
+```
 
