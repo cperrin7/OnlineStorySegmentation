@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Author: Cameron Perrin, cperrin@wustl.edu
 
 
-#Plot one participant for one story
+### Plot one participant for one story
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 ##Code for making raster plot of the button presses for Story Segmentation
@@ -46,7 +46,7 @@ segments(x0=x0, y0=y0, y1=y1)
 
 ```
 
-#Plot multiple participants for one story, with corresponding histogram
+### Plot multiple participants for one story, with corresponding histogram
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 #plot for Narrative 3, in quiet
@@ -72,21 +72,32 @@ for(row in 1:nrow(n3_quiet)){
 
 #add pt ids as y-axis labels? lots of effort maybe not worth it
 #look into weird pt
-```
 
-```{r, echo=FALSE,eval=TRUE, message= FALSE}
 #add histogram below it
 hist(n3_quiet_long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=25)
 
 ```
 
-#Look at that weird participant
+Look at that weird participant
 
 ```{r, echo=FALSE,eval=TRUE, message= FALSE}
 #long = pivot_wider(select(n3_quiet_long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = length))
 
 #pt 1301657
+#try plotting pt for Narrative 3
+pt_1301657_N3 = filter(reaction_time, narrativeName=="Narrative3" & Participant.Private.ID=="1301657")
+x0 = vector()
+y0 = rep(0, nrow(pt_1301657_N3))
+y1 = rep(1, nrow(pt_1301657_N3))
+for(rt in pt_1301657_N3$Reaction.Time){
+  x0 = c(x0, rt)
+}
+x0 = as.numeric(x0)
+x0 = x0/1000 #convert to seconds from ms
 
+plot(c(0, x0[length(x0)]), c(0,1), col = "white", xlab = "Time (seconds)", ylab = "", main = "Button Presses for pt 1301657, Narrative 3", axes=FALSE)
+Axis(side=1, labels=TRUE)
+segments(x0=x0, y0=y0, y1=y1)
 
 ```
 
