@@ -19,3 +19,5 @@ Narrative Comparisons_histogram only (complete):
 
 Narrative Comparisons_with wav files (in progress):
   Plots raster and histograms with the corresponding wav files
+
+-currently everything is drawn with basic r graphing, but should change to ggplot2 
