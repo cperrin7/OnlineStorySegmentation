@@ -1,0 +1,67 @@
+---
+title: "Narrative comparisons"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+##Code for making raster plot of the button presses for Story Segmentation, for multiple noise levels to compare
+#Author: Cameron Perrin, cperrin@wustl.edu
+if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
+if(!require("ggplot2")) install.packages("ggplot2"); library(ggplot2)
+if(!require("tidyverse")) install.packages("tidyverse");library(tidyverse)
+if(!require("patchwork")) install.packages("patchwork");library(patchwork)
+library(plyr)
+
+#load data
+durations = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/LISNstories_duration.csv")
+messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_task-j2vq.csv")
+#want data for reaction time, for the space presses
+messy_data = filter(messy_data, Response=="space")
+reaction_time = select(messy_data, Participant.Private.ID, narrativeName, noiseCondition, Reaction.Time) #reaction time should be in ms, from the start of the story
+#get rid of lecture practice data
+reaction_time = filter(reaction_time, narrativeName!="Lecture1")
+#get rid of bad participant
+reaction_time = filter(reaction_time, Participant.Private.ID!="1301657")
+
+```
+
+## Narrative 2
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+#plots for Narrative 2
+
+#quiet
+narr_name = "Narrative7"
+noise_cond = "SNR2"
+long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+#now plot on one big thing
+length = 260
+title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+plot(c(0, length), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(narr_data)){
+  y0 = rep(row-1, length(narr_data$reaction_time[row]))
+  y1 = rep(row, length(narr_data$reaction_time[row]))
+  segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+}
+#add histogram below it
+size_bins = 10;
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length), breaks=length/size_bins)
+
+
+
+
+```
+
+
+
+
