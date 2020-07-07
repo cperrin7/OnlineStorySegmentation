@@ -1,5 +1,5 @@
 ---
-title: "Narrative Comparisons_histogram only"
+title: "Narrative Comparison_with wav files"
 output: html_document
 ---
 
@@ -62,63 +62,14 @@ hist_only <- function(narr_name, noise_cond){
   hist(long$Reaction.Time, main=title, xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
 }
 
-```
 
-## Narrative 2
+```
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
-narr_name = "Narrative2"
-hist_only(narr_name, "quiet")
-hist_only(narr_name, "SNR5")
-hist_only(narr_name, "SNR2")
-```
+#https://solentacoustics.wordpress.com/fft-from-a-wav-file/
 
-## Narrative 3
-
-```{r,echo=FALSE, eval=TRUE, message= FALSE}
-narr_name = "Narrative3"
-hist_only(narr_name, "quiet")
-hist_only(narr_name, "SNR5")
-hist_only(narr_name, "SNR2")
-```
-
-## Narrative 4
-
-```{r,echo=FALSE, eval=TRUE, message= FALSE}
-narr_name = "Narrative4"
-hist_only(narr_name, "quiet")
-hist_only(narr_name, "SNR5")
-hist_only(narr_name, "SNR2")
-```
-
-## Narrative 5
-
-```{r,echo=FALSE, eval=TRUE, message= FALSE}
-narr_name = "Narrative5"
-hist_only(narr_name, "quiet")
-hist_only(narr_name, "SNR5")
-hist_only(narr_name, "SNR2")
-```
-
-## Narrative 6
-
-```{r,echo=FALSE, eval=TRUE, message= FALSE}
-narr_name = "Narrative6"
-hist_only(narr_name, "quiet")
-hist_only(narr_name, "SNR5")
-hist_only(narr_name, "SNR2")
-```
-
-## Narrative 7
-
-```{r,echo=FALSE, eval=TRUE, message= FALSE}
-narr_name = "Narrative7"
-hist_only(narr_name, "quiet")
-hist_only(narr_name, "SNR5")
-hist_only(narr_name, "SNR2")
 ```
 
 
 
-Note: consider taking out narrative answers that have too many button presses, and noise narratives start after 10(?) seconds of prep
 

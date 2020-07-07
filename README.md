@@ -16,3 +16,6 @@ Narrative Comparisons (complete):
 
 Narrative Comparisons_histogram only (complete):
   Only shows the histogram for each story/condition.
+
+Narrative Comparisons_with wav files (in progress):
+  Plots raster and histograms with the corresponding wav files

@@ -50,7 +50,7 @@ raster_plot <- function(narr_name, noise_cond){
     segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
   }
   #add histogram below it
-  size_bins = 10;
+  size_bins = 5;
   hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
 }
 
@@ -58,7 +58,7 @@ hist_only <- function(narr_name, noise_cond){
   long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
   long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
   length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
-  size_bins = 10;
+  size_bins = 5;
   title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
   hist(long$Reaction.Time, main=title, xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
 }
