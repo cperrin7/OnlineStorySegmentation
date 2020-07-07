@@ -13,7 +13,7 @@ Author: Cameron Perrin, cperrin@wustl.edu
 
 ### Plot one participant for one story
 
-```{r, eval=TRUE, message= FALSE}
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
 ##Code for making raster plot of the button presses for Story Segmentation
 #Author: Cameron Perrin, cperrin@wustl.edu
 if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
@@ -51,7 +51,7 @@ segments(x0=x0, y0=y0, y1=y1)
 
 ### Plot multiple participants for one story, with corresponding histogram
 
-```{r, eval=TRUE, message= FALSE}
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
 #plot for Narrative 3, in quiet
 n3_quiet_long = filter(reaction_time, narrativeName=="Narrative3" & noiseCondition=="quiet")
 n3_quiet_long$Reaction.Time = as.numeric(n3_quiet_long$Reaction.Time)/1000
@@ -76,8 +76,9 @@ for(row in 1:nrow(n3_quiet)){
 #add pt ids as y-axis labels? lots of effort maybe not worth it
 #look into weird pt
 
+num_bins = 50;
 #add histogram below it
-hist(n3_quiet_long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=25)
+hist(n3_quiet_long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=num_bins)
 
 ```
 
@@ -85,7 +86,7 @@ Note: histogram includes the odd participant, so likely those spikes are from th
 
 Look at that weird participant
 
-```{r, eval=TRUE, message= FALSE}
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
 #long = pivot_wider(select(n3_quiet_long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = length))
 
 #pt 1301657
@@ -108,9 +109,9 @@ segments(x0=x0, y0=y0, y1=y1)
 
 histogram without odd participant
 
-```{r, eval=TRUE, message= FALSE}
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
 n3_quiet_no_outlier = filter(n3_quiet_long, n3_quiet_long$Participant.Private.ID!="1301657")
 
-hist(n3_quiet_no_outlier$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=25)
+hist(n3_quiet_no_outlier$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,250), breaks=num_bins)
 ```
 
