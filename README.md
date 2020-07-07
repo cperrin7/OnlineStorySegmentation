@@ -13,3 +13,6 @@ Raster Plot (complete):
 
 Narrative Comparisons (complete):
   Creates raster plots for each story in each noise condition.
+
+Narrative Comparisons_histogram only (complete):
+  Only shows the histogram for each story/condition.

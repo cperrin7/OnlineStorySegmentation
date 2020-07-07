@@ -1,14 +1,11 @@
 ---
-title: "Narrative Comparisons_corrected"
+title: "Narrative Comparisons_histogram only"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## Narrative Comparisons
-
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 ##Code for making raster plot of the button presses for Story Segmentation, for multiple noise levels to compare. This uses soundfile instead of noiseCondition
 #Author: Cameron Perrin, cperrin@wustl.edu
@@ -69,62 +66,58 @@ hist_only <- function(narr_name, noise_cond){
 ## Narrative 2
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
-raster_plot("Narrative2","quiet")
-raster_plot("Narrative2","SNR5")
-raster_plot("Narrative2","SNR2")
-
+narr_name = "Narrative2"
+hist_only(narr_name, "quiet")
+hist_only(narr_name, "SNR5")
+hist_only(narr_name, "SNR2")
 ```
 
 ## Narrative 3
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative3"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
-
+hist_only(narr_name, "quiet")
+hist_only(narr_name, "SNR5")
+hist_only(narr_name, "SNR2")
 ```
 
 ## Narrative 4
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative4"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
-
+hist_only(narr_name, "quiet")
+hist_only(narr_name, "SNR5")
+hist_only(narr_name, "SNR2")
 ```
 
 ## Narrative 5
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative5"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
-
+hist_only(narr_name, "quiet")
+hist_only(narr_name, "SNR5")
+hist_only(narr_name, "SNR2")
 ```
 
 ## Narrative 6
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative6"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
-
+hist_only(narr_name, "quiet")
+hist_only(narr_name, "SNR5")
+hist_only(narr_name, "SNR2")
 ```
 
 ## Narrative 7
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative7"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
-
+hist_only(narr_name, "quiet")
+hist_only(narr_name, "SNR5")
+hist_only(narr_name, "SNR2")
 ```
 
 
 
+Note: consider taking out narrative answers that have too many button presses, and noise narratives start after 10(?) seconds of prep
 
