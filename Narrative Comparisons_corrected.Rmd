@@ -1,0 +1,130 @@
+---
+title: "Narrative Comparisons_corrected"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Narrative Comparisons
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+##Code for making raster plot of the button presses for Story Segmentation, for multiple noise levels to compare. This uses soundfile instead of noiseCondition
+#Author: Cameron Perrin, cperrin@wustl.edu
+if(!require("dplyr")) install.packages("dplyr"); library(dplyr)
+if(!require("ggplot2")) install.packages("ggplot2"); library(ggplot2)
+if(!require("tidyverse")) install.packages("tidyverse");library(tidyverse)
+if(!require("patchwork")) install.packages("patchwork");library(patchwork)
+library(plyr)
+
+#load data
+durations = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/LISNstories_duration.csv")
+messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_task-j2vq.csv")
+#want data for reaction time, for the space presses
+messy_data = filter(messy_data, Response=="space")
+reaction_time = select(messy_data, Participant.Private.ID, soundfile, Reaction.Time) #reaction time should be in ms, from the start of the story
+#get rid of lecture practice data
+reaction_time = filter(reaction_time, soundfile!="Practice_Lecture1_quiet.mp3")
+#get rid of bad participant
+reaction_time = filter(reaction_time, Participant.Private.ID!="1301657")
+#now get narrative name and noise condition into new columns
+reaction_time$narrativeName = substring(reaction_time$soundfile, 1, 10)
+reaction_time$noiseCondition = substring(reaction_time$soundfile, 12, nchar(reaction_time$soundfile)-4)
+reaction_time = select(reaction_time, -soundfile)
+
+
+#Function for raster plots
+raster_plot <- function(narr_name, noise_cond){
+  long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+  long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+  narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+  names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+  #now plot on one big thing
+  length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+  title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+  plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+  Axis(side=1, labels=TRUE)
+  for(row in 1:nrow(narr_data)){
+    y0 = rep(row-1, length(narr_data$reaction_time[row]))
+    y1 = rep(row, length(narr_data$reaction_time[row]))
+    segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+  }
+  #add histogram below it
+  size_bins = 10;
+  hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+}
+
+hist_only <- function(narr_name, noise_cond){
+  long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+  long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+  length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+  size_bins = 10;
+  title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+  hist(long$Reaction.Time, main=title, xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+}
+
+```
+
+## Narrative 2
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+raster_plot("Narrative2","quiet")
+raster_plot("Narrative2","SNR5")
+raster_plot("Narrative2","SNR2")
+
+```
+
+## Narrative 3
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+narr_name = "Narrative3"
+raster_plot(narr_name,"quiet")
+raster_plot(narr_name,"SNR5")
+raster_plot(narr_name,"SNR2")
+
+```
+
+## Narrative 4
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+narr_name = "Narrative4"
+raster_plot(narr_name,"quiet")
+raster_plot(narr_name,"SNR5")
+raster_plot(narr_name,"SNR2")
+
+```
+
+## Narrative 5
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+narr_name = "Narrative5"
+raster_plot(narr_name,"quiet")
+raster_plot(narr_name,"SNR5")
+raster_plot(narr_name,"SNR2")
+
+```
+
+## Narrative 6
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+narr_name = "Narrative6"
+raster_plot(narr_name,"quiet")
+raster_plot(narr_name,"SNR5")
+raster_plot(narr_name,"SNR2")
+
+```
+
+## Narrative 7
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+narr_name = "Narrative7"
+raster_plot(narr_name,"quiet")
+raster_plot(narr_name,"SNR5")
+raster_plot(narr_name,"SNR2")
+
+```
+
+
+
+

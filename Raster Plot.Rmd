@@ -25,9 +25,13 @@ if(!require("patchwork")) install.packages("patchwork");library(patchwork)
 messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_task-j2vq.csv")
 #want data for reaction time, for the space presses
 messy_data = filter(messy_data, Response=="space")
-reaction_time = select(messy_data, Participant.Private.ID, narrativeName, noiseCondition, Reaction.Time) #reaction time should be in ms, from the start of the story
+reaction_time = select(messy_data, Participant.Private.ID, soundfile, Reaction.Time) #reaction time should be in ms, from the start of the story
 #get rid of lecture practice data
-reaction_time = filter(reaction_time, narrativeName!="Lecture1")
+reaction_time = filter(reaction_time, soundfile!="Practice_Lecture1_quiet.mp3")
+#now get narrative name and noise condition into new columns
+reaction_time$narrativeName = substring(reaction_time$soundfile, 1, 10)
+reaction_time$noiseCondition = substring(reaction_time$soundfile, 12, nchar(reaction_time$soundfile)-4)
+reaction_time = select(reaction_time, -soundfile)
 
 #try plotting pt 1268616 for Narrative 3
 #easy to change pt/narrative if want to

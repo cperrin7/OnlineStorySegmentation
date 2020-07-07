@@ -24,7 +24,9 @@ if(!require("patchwork")) install.packages("patchwork");library(patchwork)
 
 ##load data (change file path if not me)
 messy_data = read.csv("C:/Users/CKPer/Box/WashU/Peelle Lab/Story Segmentation/Online Sona data/gorilla data_long version/data_exp_15568-v3_task-j2vq.csv")
-messy_data = select(messy_data, Participant.Private.ID, narrativeName, noiseCondition, Response, Attempt)
+messy_data = select(messy_data, Participant.Private.ID, narrativeName, Response, Attempt, soundfile)
+messy_data$noiseCondition = substring(messy_data$soundfile, 12, nchar(messy_data$soundfile)-4)
+messy_data = select(messy_data, -soundfile)
 long_data = filter(messy_data, Response=="space")
 long_data = subset(long_data, select = -Response)
 #get rid of the practice lectures
