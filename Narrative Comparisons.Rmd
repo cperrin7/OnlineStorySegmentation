@@ -34,19 +34,19 @@ reaction_time = filter(reaction_time, Participant.Private.ID!="1301657")
 ## Narrative 2
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
-#plots for Narrative 2
+#plot for Narrative 2
 
-#quiet
-narr_name = "Narrative7"
-noise_cond = "SNR2"
+#quiet - there is only quiet for narrative 2
+narr_name = "Narrative2"
+noise_cond = "quiet"
 long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
 long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
 narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
 names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
 #now plot on one big thing
-length = 260
+length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
 title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
-plot(c(0, length), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
 Axis(side=1, labels=TRUE)
 for(row in 1:nrow(narr_data)){
   y0 = rep(row-1, length(narr_data$reaction_time[row]))
@@ -55,13 +55,148 @@ for(row in 1:nrow(narr_data)){
 }
 #add histogram below it
 size_bins = 10;
-hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length), breaks=length/size_bins)
-
-
-
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
 
 ```
 
+## Narrative 3
 
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+#plot for Narrative 3
+
+#quiet
+narr_name = "Narrative3"
+noise_cond = "quiet"
+long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+#now plot on one big thing
+length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(narr_data)){
+  y0 = rep(row-1, length(narr_data$reaction_time[row]))
+  y1 = rep(row, length(narr_data$reaction_time[row]))
+  segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+}
+#add histogram below it
+size_bins = 10;
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+
+```
+
+## Narrative 4
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+#plot for Narrative 4
+
+#SNR5
+narr_name = "Narrative4"
+noise_cond = "SNR5"
+long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+#now plot on one big thing
+length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(narr_data)){
+  y0 = rep(row-1, length(narr_data$reaction_time[row]))
+  y1 = rep(row, length(narr_data$reaction_time[row]))
+  segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+}
+#add histogram below it
+size_bins = 10;
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+
+```
+
+## Narrative 5
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+#plot for Narrative 5
+
+#SNR5
+narr_name = "Narrative5"
+noise_cond = "SNR5"
+long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+#now plot on one big thing
+length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(narr_data)){
+  y0 = rep(row-1, length(narr_data$reaction_time[row]))
+  y1 = rep(row, length(narr_data$reaction_time[row]))
+  segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+}
+#add histogram below it
+size_bins = 10;
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+
+```
+
+## Narrative 6
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+#plot for Narrative 6
+
+#SNR2
+narr_name = "Narrative6"
+noise_cond = "SNR2"
+long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+#now plot on one big thing
+length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(narr_data)){
+  y0 = rep(row-1, length(narr_data$reaction_time[row]))
+  y1 = rep(row, length(narr_data$reaction_time[row]))
+  segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+}
+#add histogram below it
+size_bins = 10;
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+
+```
+
+## Narrative 7
+
+```{r,echo=FALSE, eval=TRUE, message= FALSE}
+#plot for Narrative 7
+
+#SNR2
+narr_name = "Narrative7"
+noise_cond = "SNR2"
+long = filter(reaction_time, narrativeName==narr_name & noiseCondition==noise_cond)
+long$Reaction.Time = as.numeric(long$Reaction.Time)/1000
+narr_data = pivot_wider(select(long, -noiseCondition), names_from = narrativeName, values_from = Reaction.Time, values_fn = list(Reaction.Time = list))
+names(narr_data)[names(narr_data) == narr_name] <- "reaction_time"
+#now plot on one big thing
+length = durations$duration[durations$narrative==narr_name & durations$noise.condition==noise_cond]
+title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
+plot(c(0, length+50), c(0,nrow(narr_data)), col = "white", xlab = "Time (seconds)", ylab = "", main = title, axes=FALSE)
+Axis(side=1, labels=TRUE)
+for(row in 1:nrow(narr_data)){
+  y0 = rep(row-1, length(narr_data$reaction_time[row]))
+  y1 = rep(row, length(narr_data$reaction_time[row]))
+  segments(x0=unlist(narr_data$reaction_time[row]), y0=y0, y1=y1) 
+}
+#add histogram below it
+size_bins = 10;
+hist(long$Reaction.Time, main="", xlab="Time (seconds)", xlim=c(0,length+50), breaks=length/size_bins)
+
+```
 
 

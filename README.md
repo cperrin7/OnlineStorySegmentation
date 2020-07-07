@@ -3,7 +3,7 @@
 
 
 Demographic_Summary (complete):
- Takes in data from the demographics questionaire, converts it to a usable format, and prints out the summary of the data
+ Takes in data from the demographics questionnaire, converts it to a usable format, and prints out the summary of the data
 
 Button Presses_Summary (complete):
  Takes in data from the event segmentation task, converts it to usable format, and sums up the number of presses per participant on each task, then graphs it
@@ -11,5 +11,5 @@ Button Presses_Summary (complete):
 Raster Plot (complete):
  Can create a raster plot of button presses, as lines on a graph for each button press, for each participant for each story. Does this for one specific participant, and also for all participants for a specific story, with histogram below.
 
-Narrative Comparisons (in progress):
+Narrative Comparisons (complete):
   Creates raster plots for each story in each noise condition.
