@@ -112,7 +112,8 @@ hist_one_or_zero <- function(narr_name, noise_cond){
   
   title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
   subtitle = paste0("Each participant only counted once per box; ", num_pts, " participants total")
-  hist(presses$press, main=title, sub=subtitle, xlab="Time (seconds)", xlim=c(0,length+50), breaks=num_bins)
+  h <- hist(presses$press, main=title, sub=subtitle, xlab="Time (seconds)", xlim=c(0,length+50), breaks=num_bins)
+  text(h$mids,h$counts,labels=h$counts, adj=c(0.5, -0.5))
 }
 
 ```
@@ -120,7 +121,7 @@ hist_one_or_zero <- function(narr_name, noise_cond){
 ## Narrative 2
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
-hist_one_or_zero("Narrative2","quiet")
+hist_one_or_zero("Narrative2","quiet")#getting 31 participants on first box for some reason, even though only 30 pt total
 hist_one_or_zero("Narrative2","SNR5")
 hist_one_or_zero("Narrative2","SNR2")
 
