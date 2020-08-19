@@ -24,4 +24,4 @@ Narrative Comparisons_participants once each (complete):
 Narrative Comparisons_with wav files (in progress):
   Plots raster and histograms with the corresponding wav files
 
--currently everything is drawn with basic r graphing, but should change to ggplot2
+-currently everything is drawn with basic r graphing, but should change to ggplot2 (https://www.datacamp.com/community/tutorials/make-histogram-ggplot2)
