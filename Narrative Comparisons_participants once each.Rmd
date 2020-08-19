@@ -1,5 +1,5 @@
 ---
-title: "Narrative Comparisons"
+title: "Narrative Comparisons_participants once each"
 output: html_document
 ---
 
@@ -108,7 +108,7 @@ hist_one_or_zero <- function(narr_name, noise_cond){
   presses = filter(presses, press!=0);
   
   title = paste0("Button Presses for all Participants for Narrative ",gsub("[[:alpha:]]", "", narr_name)," in ",noise_cond)
-  subtitle = "Each participant only counted once per box"
+  subtitle = paste0("Each participant only counted once per box; ", num_pts, " participants total")
   hist(presses$press, main=title, sub=subtitle, xlab="Time (seconds)", xlim=c(0,length+50), breaks=num_bins)
 }
 
@@ -117,9 +117,9 @@ hist_one_or_zero <- function(narr_name, noise_cond){
 ## Narrative 2
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
-raster_plot("Narrative2","quiet")
-raster_plot("Narrative2","SNR5")
-raster_plot("Narrative2","SNR2")
+hist_one_or_zero("Narrative2","quiet")
+hist_one_or_zero("Narrative2","SNR5")
+hist_one_or_zero("Narrative2","SNR2")
 
 ```
 
@@ -127,9 +127,9 @@ raster_plot("Narrative2","SNR2")
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative3"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
+hist_one_or_zero(narr_name,"quiet")
+hist_one_or_zero(narr_name,"SNR5")
+hist_one_or_zero(narr_name,"SNR2")
 
 ```
 
@@ -137,9 +137,9 @@ raster_plot(narr_name,"SNR2")
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative4"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
+hist_one_or_zero(narr_name,"quiet")
+hist_one_or_zero(narr_name,"SNR5")
+hist_one_or_zero(narr_name,"SNR2")
 
 ```
 
@@ -147,9 +147,9 @@ raster_plot(narr_name,"SNR2")
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative5"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
+hist_one_or_zero(narr_name,"quiet")
+hist_one_or_zero(narr_name,"SNR5")
+hist_one_or_zero(narr_name,"SNR2")
 
 ```
 
@@ -157,9 +157,9 @@ raster_plot(narr_name,"SNR2")
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative6"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
+hist_one_or_zero(narr_name,"quiet")
+hist_one_or_zero(narr_name,"SNR5")
+hist_one_or_zero(narr_name,"SNR2")
 
 ```
 
@@ -167,9 +167,9 @@ raster_plot(narr_name,"SNR2")
 
 ```{r,echo=FALSE, eval=TRUE, message= FALSE}
 narr_name = "Narrative7"
-raster_plot(narr_name,"quiet")
-raster_plot(narr_name,"SNR5")
-raster_plot(narr_name,"SNR2")
+hist_one_or_zero(narr_name,"quiet")
+hist_one_or_zero(narr_name,"SNR5")
+hist_one_or_zero(narr_name,"SNR2")
 
 ```
 
